@@ -1,0 +1,1 @@
+{"version":3,"sources":["bootstrap.ts"],"names":["catch","e","console","error"],"mappings":"0FAAA,yDAAkBA,OAAM,SAACC,GAAD,OAAOC,QAAQC,MAAM,8BAA+BF,Q","file":"static/js/main.b2c21574.chunk.js","sourcesContent":["import(\"./index\").catch((e) => console.error(\"Error importing `index.js`:\", e));\nexport {};\n"],"sourceRoot":""}
