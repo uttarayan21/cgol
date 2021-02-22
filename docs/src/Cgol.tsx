@@ -59,6 +59,7 @@ class Cgol extends React.Component<CgolProps, CgolState> {
     this.state = state;
     console.log(this.state);
     this.universe = Universe.new(state.width, state.height);
+    this.universe.random();
 
     // Bind functions with this
     this.getIndex = this.getIndex.bind(this);
@@ -86,10 +87,10 @@ class Cgol extends React.Component<CgolProps, CgolState> {
     for (let r = 0; r < this.state.height; r++) {
       for (let c = 0; c < this.state.width; c++) {
         console.log(r, c, ++count);
-        this.ctx?.moveTo((r + 1) * 2 * this.state.cellRadius, (c * 2 + 1) * this.state.cellRadius);
+        this.ctx?.moveTo((c + 1) * 2 * this.state.cellRadius, (r * 2 + 1) * this.state.cellRadius);
         this.ctx?.arc(
-          (2 * r + 1) * this.state.cellRadius,
           (2 * c + 1) * this.state.cellRadius,
+          (2 * r + 1) * this.state.cellRadius,
           this.state.cellRadius,
           0,
           Math.PI * 2
@@ -103,17 +104,17 @@ class Cgol extends React.Component<CgolProps, CgolState> {
     let cells_ptr: number = this.universe.cells();
     let cells: Uint8Array = new Uint8Array(memory.buffer, cells_ptr, this.state.width * this.state.height);
 
-    for (let r = 0; r <= this.state.height; r++) {
-      for (let c = 0; c <= this.state.width; c++) {
+    for (let r = 0; r < this.state.height; r++) {
+      for (let c = 0; c < this.state.width; c++) {
         if (this.ctx) {
           let index = this.getIndex(c, r);
           this.ctx.fillStyle = cells[index] === Cell.Dead ? "#FFFFFF" : "green";
         }
         this.ctx?.beginPath();
-        this.ctx?.moveTo((r + 1) * 2 * this.state.cellRadius, (c * 2 + 1) * this.state.cellRadius);
+        this.ctx?.moveTo((c + 1) * 2 * this.state.cellRadius, (r * 2 + 1) * this.state.cellRadius);
         this.ctx?.arc(
-          (2 * r + 1) * this.state.cellRadius,
           (2 * c + 1) * this.state.cellRadius,
+          (2 * r + 1) * this.state.cellRadius,
           this.state.cellRadius - 0.9,
           0,
           Math.PI * 2
@@ -144,6 +145,9 @@ class Cgol extends React.Component<CgolProps, CgolState> {
           <Row className="mb-3 d-flex justify-content-center">
             <Button variant="info" onClick={this.stopRenderLoop}>
               Pause/Play
+            </Button>
+            <Button variant="info" onClick={this.universe.random}>
+              Random
             </Button>
           </Row>
           <Row className="d-flex justify-content-center">

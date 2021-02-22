@@ -1,5 +1,6 @@
-// mod utils;
+extern crate js_sys;
 use std::fmt;
+
 use wasm_bindgen::prelude::*;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
@@ -88,11 +89,20 @@ impl Universe {
             cells,
         }
     }
+    pub fn random(&mut self) {
+        self.cells = (0..self.width * self.height)
+            .map(|_| {
+                if unsafe { js_sys::Math::random() } < 0.5 {
+                    Cell::Alive
+                } else {
+                    Cell::Dead
+                }
+            })
+            .collect()
+    }
+
     pub fn cells(&self) -> *const Cell {
         self.cells.as_ptr()
-    }
-    pub fn render(&self) -> String {
-        self.to_string()
     }
 
     pub fn tick(&mut self) {

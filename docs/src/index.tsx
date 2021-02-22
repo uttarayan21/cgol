@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Cgol height={5} width={10} cellRadius={20} />
+    <Cgol height={25} width={55} cellRadius={10} />
   </React.StrictMode>,
   document.getElementById("root")
 );
